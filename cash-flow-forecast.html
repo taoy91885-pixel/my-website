@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>基于大模型的企业现金流预测：ERP数据需求与分析框架</title>
+<meta name="description" content="企业现金流预测需要哪些 ERP 数据？ERP 是否足够？本页从预测周期、数据清单、影响逻辑与混合模型架构四个方面给出完整方法框架。">
+<link rel="canonical" href="https://taoy91885.com/cash-flow-forecast.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="基于大模型的企业现金流预测">
+<meta property="og:description" content="ERP 数据需求、数据充分性、影响逻辑与混合预测模型全景图。">
+<meta property="og:url" content="https://taoy91885.com/cash-flow-forecast.html">
+<meta property="og:image" content="https://taoy91885.com/assets/images/cash-flow-forecast-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="基于大模型的企业现金流预测">
+<meta name="twitter:description" content="ERP 数据需求、数据充分性、影响逻辑与混合预测模型全景图。">
+<meta name="twitter:image" content="https://taoy91885.com/assets/images/cash-flow-forecast-og.png">
+<link rel="stylesheet" href="assets/css/cash-flow-forecast.css">
+
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="返回于涛的个人网站首页">
+      <span class="brand-mark">现</span>
+      <span><strong>企业现金流预测框架</strong><small>ERP 数据 × 混合预测 × 大模型协同</small></span>
+    </a>
+    <nav class="nav" aria-label="页面导航">
+      <div class="nav-inner">
+        <a href="index.html">首页</a>
+        <a href="#part1" class="active"><span class="num">1</span>预测体系</a>
+        <a href="#part2"><span class="num">2</span>充分性</a>
+        <a href="#part3"><span class="num">3</span>数据清单</a>
+        <a href="#part4"><span class="num">4</span>分析架构</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-kicker">企业财务 AI 场景研究</div>
+  <h1>基于大模型的企业现金流预测</h1>
+  <p>ERP 数据需求清单 × 数据影响逻辑 × 混合预测模型全景图</p>
+  <div class="badge"><span class="dot"></span> 方法框架 · 需用企业真实数据回测验证</div>
+</div>
+
+<div class="container">
+
+<aside class="scope-note" aria-label="阅读说明">
+  <strong>先说结论：</strong>ERP 是现金流预测的核心数据底座，但通常不是全部。短期预测还依赖实时银行余额与明确收付计划；中长期预测还要补充预算、合同、经营计划、重大事项和外部变量。大模型更适合处理非结构化信息、场景交互与结果解释，数值预测应由确定性规则、统计与机器学习模型共同承担。
+</aside>
+
+<!-- ==================== PART 1: 三层预测体系 ==================== -->
+<section class="section" id="part1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>分析逻辑：三层预测体系 <span>按时间维度分层，每层用不同的逻辑和数据</span></h2>
+  </div>
+
+  <div class="horizon-grid">
+    <div class="horizon-card short">
+      <span class="horizon-tag">短期 · 13 周滚动</span>
+      <h3>确定性推算 + 概率建模</h3>
+      <p><strong style="color:var(--text-primary)">输入：</strong>已确认订单 + 已开立发票 + 已到期应付 + 工资计划 + 贷款还款计划</p>
+      <p><strong style="color:var(--text-primary)">大模型作用：</strong>识别发票→回款的实际时间模式，预测客户真实付款日期而非合同到期日</p>
+      <div class="accuracy">验证重点：周度 WAPE、资金缺口漏报率</div>
+    </div>
+    <div class="horizon-card mid">
+      <span class="horizon-tag">中期 · 3–6 个月</span>
+      <h3>时序预测 + 业务规则</h3>
+      <p><strong style="color:var(--text-primary)">输入：</strong>销售预测 + 采购计划 + 生产计划 + 预算数据 + 合同收款计划</p>
+      <p><strong style="color:var(--text-primary)">模型作用：</strong>融合历史季节性、业务增长趋势、客户行为变化进行多变量预测</p>
+      <div class="accuracy">验证重点：月度 WAPE、收支驱动偏差</div>
+    </div>
+    <div class="horizon-card long">
+      <span class="horizon-tag">长期 · 12 个月+</span>
+      <h3>场景模拟 + 敏感性分析</h3>
+      <p><strong style="color:var(--text-primary)">输入：</strong>年度预算 + 战略计划 + 宏观经济指标 + 行业趋势</p>
+      <p><strong style="color:var(--text-primary)">大模型作用：</strong>生成多情景假设（乐观/基准/悲观），识别关键风险驱动因素</p>
+      <div class="accuracy">验证重点：情景覆盖率、关键假设敏感度</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:rgba(59,130,246,0.12); color:var(--accent-light);">🧠</div>
+      <div>
+        <div class="card-title">大模型在现金流预测中的独特价值</div>
+        <div class="card-subtitle">大模型不是替代数值模型，而是补足传统系统难处理的信息与交互</div>
+      </div>
+    </div>
+    <div class="value-grid">
+      <div class="value-item">
+        <h4>语义理解</h4>
+        <p>解析合同付款条款中的"月结60天""验收后付30%"等非结构化文本，转化为精确时点与金额比例</p>
+      </div>
+      <div class="value-item">
+        <h4>因果推理</h4>
+        <p>结合业务上下文提出可能的偏差原因与待验证假设，避免把相关性直接当成因果关系</p>
+      </div>
+      <div class="value-item">
+        <h4>异常解释</h4>
+        <p>当预测偏差超阈值时，自动生成归因分析（如"偏差主要来自A客户逾期，建议催收"）</p>
+      </div>
+      <div class="value-item">
+        <h4>场景生成</h4>
+        <p>接受自然语言指令（"如果原材料涨价10%会怎样"），自动调整多变量并输出新预测</p>
+      </div>
+      <div class="value-item">
+        <h4>知识融合</h4>
+        <p>检索企业制度、行业研究与历史案例，为冷启动阶段提供可追溯的参考依据</p>
+      </div>
+      <div class="value-item">
+        <h4>报告生成</h4>
+        <p>自动输出自然语言预测报告，包含逻辑说明、关键假设、风险提示，降低财务团队使用门槛</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PART 2: 数据充分性评估 ==================== -->
+<section class="section" id="part2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>数据是否足够？——分层次评估 <span>ERP 数据的能力边界与补齐路径</span></h2>
+  </div>
+
+  <div class="card" style="padding:0; overflow:hidden;">
+    <table class="suff-table">
+      <thead>
+        <tr>
+          <th>预测维度</th>
+          <th>仅 ERP 数据的可用程度</th>
+          <th>瓶颈所在</th>
+          <th>需补充的数据</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong>短期（1–4 周）</strong>
+            <div class="dim">已发生业务的确定性推算</div>
+          </td>
+          <td>
+            <span class="pill pill-high">较高</span>
+            <div class="bar-track" aria-label="可用程度较高"><div class="bar-fill bar-high" style="width:88%"></div></div>
+          </td>
+          <td class="dim">银行流水延迟、客户口头承诺未录入 ERP</td>
+          <td class="dim">实时银行 API、客户沟通记录结构化</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>中期（1–6 个月）</strong>
+            <div class="dim">计划业务的趋势外推</div>
+          </td>
+          <td>
+            <span class="pill pill-mid">中等</span>
+            <div class="bar-track" aria-label="可用程度中等"><div class="bar-fill bar-mid" style="width:66%"></div></div>
+          </td>
+          <td class="dim">缺少外部经济环境、客户行业动态</td>
+          <td class="dim">宏观指标（PMI、利率）、客户财报/舆情</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>长期（6–12 个月+）</strong>
+            <div class="dim">战略假设的场景模拟</div>
+          </td>
+          <td>
+            <span class="pill pill-low">有限</span>
+            <div class="bar-track" aria-label="可用程度有限"><div class="bar-fill bar-low" style="width:42%"></div></div>
+          </td>
+          <td class="dim">战略决策、市场变化未体现在 ERP 中</td>
+          <td class="dim">预算数据、战略规划、行业趋势报告</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:rgba(245,158,11,0.12); color:var(--warning);">⚠️</div>
+      <div>
+        <div class="card-title">ERP 数据之外的五类关键缺口</div>
+        <div class="card-subtitle">这些缺口决定了预测能否覆盖真实的收付款节奏与经营变化</div>
+      </div>
+    </div>
+    <div class="value-grid">
+      <div class="value-item">
+        <h4 style="color:var(--warning)">① 外部数据黑洞</h4>
+        <p>ERP 只记录"企业内部发生了什么"，不记录"客户行业是否下行"。大模型需要外部数据（PMI、客户财报、舆情）才能判断客户付款能力是否恶化。</p>
+      </div>
+      <div class="value-item">
+        <h4 style="color:var(--warning)">② 非结构化信息缺失</h4>
+        <p>"下个月要签一个大单""某供应商可能涨价"——这些信息在邮件、会议纪要里，ERP 没有。大模型的优势正是理解这类文本，但前提是你要把文本喂给它。</p>
+      </div>
+      <div class="value-item">
+        <h4 style="color:var(--warning)">③ 行为数据缺失</h4>
+        <p>ERP 记录"客户A在到期后第10天付款"，但不记录"为什么延迟"（资金紧张？还是流程慢？）。需要补充"客户付款原因标签"才能更准确预测。</p>
+      </div>
+      <div class="value-item">
+        <h4 style="color:var(--warning)">④ 实时性不足</h4>
+        <p>银行流水、客户回款信息存在 T+1 甚至更长的延迟。短期预测需要当日数据，否则期初现金基准就是"盲猜"。</p>
+      </div>
+      <div class="value-item" style="grid-column: 1 / -1;">
+        <h4 style="color:var(--warning)">⑤ 手工台账黑洞</h4>
+        <p>很多企业有 ERP 外的 Excel 付款计划、口头约定的延期付款——这些是预测的"暗物质"，必须人工录入或结构化后才能纳入模型。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <h4>📊 充分性结论</h4>
+    <p>仅依靠 ERP 可以建立第一版预测基线，但不能预先承诺固定准确率。实际效果取决于数据完整性、业务波动、预测周期和评价口径，应通过滚动回测确定。建议优先补充：</p>
+    <p style="margin-top:10px;">
+      ① <strong>外部宏观数据</strong>（利率、PMI、行业指数）<br>
+      ② <strong>客户行为标签</strong>（付款习惯、信用变化、延迟原因）<br>
+      ③ <strong>实时银行 API 连接</strong>（消除 T+1 延迟）<br>
+      ④ <strong>非结构化业务信息</strong>（合同条款、会议纪要中的重大事项）<br>
+      ⑤ <strong>预算与专项计划</strong>（融资、税务、资本开支与重大项目）
+    </p>
+  </div>
+</section>
+
+<!-- ==================== PART 3: ERP 数据清单 ==================== -->
+<section class="section" id="part3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>ERP 数据清单：六大模块、30+ 核心字段 <span>把权责发生制的业务数据，还原为收付实现制的现金流动</span></h2>
+  </div>
+
+  <!-- Module 1 -->
+  <div class="module-card">
+    <button class="module-header" type="button" onclick="toggleModule(this.closest('.module-card'))" aria-expanded="false">
+      <div class="module-dot dot-blue"></div>
+      <div class="module-title-group">
+        <h3>模块一：销售与应收</h3>
+        <span>经营现金流入的核心驱动</span>
+      </div>
+      <span class="chevron" aria-hidden="true">▼</span>
+    </button>
+    <div class="module-body">
+      <div class="module-section">
+        <h4>📋 数据清单</h4>
+        <table class="data-table">
+          <thead><tr><th>数据项</th><th>关键字段</th></tr></thead>
+          <tbody>
+            <tr><td>销售订单（SO）明细</td><td>订单金额、客户、交货日期、付款条款</td></tr>
+            <tr><td>应收账款账龄表</td><td>发票号、开票日、到期日、已收金额、逾期天数</td></tr>
+            <tr><td>客户回款历史</td><td>客户ID、回款日期、金额、方式</td></tr>
+            <tr><td>客户信用评级</td><td>授信额度、信用等级、历史逾期次数</td></tr>
+            <tr><td>销售退货/折扣</td><td>退货金额、折扣率、发生时间</td></tr>
+            <tr><td>合同收款计划</td><td>分期收款合同的各期金额与时间节点</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="module-section">
+        <h4>💡 对现金流的影响</h4>
+        <div class="impact-box">
+          直接决定经营现金流入的规模和时点。回款历史训练大模型识别不同客户的付款行为模式；账龄数据用于预测逾期概率；订单数据用于预测未来收入转化为现金的时间分布。<strong>注意：</strong>订单≠现金，需根据交货计划和付款条款推算未来开票时点，再叠加客户历史回款周期，得到预计回款日期。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module 2 -->
+  <div class="module-card">
+    <button class="module-header" type="button" onclick="toggleModule(this.closest('.module-card'))" aria-expanded="false">
+      <div class="module-dot dot-red"></div>
+      <div class="module-title-group">
+        <h3>模块二：采购与应付</h3>
+        <span>经营现金流出的主要部分</span>
+      </div>
+      <span class="chevron" aria-hidden="true">▼</span>
+    </button>
+    <div class="module-body">
+      <div class="module-section">
+        <h4>📋 数据清单</h4>
+        <table class="data-table">
+          <thead><tr><th>数据项</th><th>关键字段</th></tr></thead>
+          <tbody>
+            <tr><td>采购订单（PO）明细</td><td>供应商、金额、交货期、付款条款</td></tr>
+            <tr><td>应付账款账龄表</td><td>发票日期、到期日、已付金额</td></tr>
+            <tr><td>供应商付款历史</td><td>实际付款日 vs 到期日，提前/延期记录</td></tr>
+            <tr><td>采购退货/索赔</td><td>退货金额、索赔状态、预计到账时间</td></tr>
+            <tr><td>合同付款计划</td><td>分期付款合同的各期金额与时间节点</td></tr>
+            <tr><td>原材料价格波动</td><td>品类、价格、时间序列（如有集成）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="module-section">
+        <h4>💡 对现金流的影响</h4>
+        <div class="impact-box" style="border-left-color:var(--danger)">
+          决定经营现金流出的主要部分。付款历史训练模型识别企业付款习惯；PO 数据预测未来付款义务；账龄数据识别即将到期的付款压力。<strong>注意：</strong>供应商付款行为受企业资金状况影响，存在内生性偏差——资金紧张时企业会主动延期付款，这会让历史数据"看起来"付款周期变长。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module 3 -->
+  <div class="module-card">
+    <button class="module-header" type="button" onclick="toggleModule(this.closest('.module-card'))" aria-expanded="false">
+      <div class="module-dot dot-green"></div>
+      <div class="module-title-group">
+        <h3>模块三：库存与生产</h3>
+        <span>资金占用与释放的关键杠杆</span>
+      </div>
+      <span class="chevron" aria-hidden="true">▼</span>
+    </button>
+    <div class="module-body">
+      <div class="module-section">
+        <h4>📋 数据清单</h4>
+        <table class="data-table">
+          <thead><tr><th>数据项</th><th>关键字段</th></tr></thead>
+          <tbody>
+            <tr><td>库存余额与周转</td><td>原材料、在制品、产成品金额与数量</td></tr>
+            <tr><td>MRP/生产工单</td><td>物料需求、开工/完工日期、进度</td></tr>
+            <tr><td>安全库存设置</td><td>补货触发点、再订货量、提前期</td></tr>
+            <tr><td>呆滞库存/减值</td><td>呆滞品金额、减值准备、处理计划</td></tr>
+            <tr><td>仓储物流费用</td><td>发生金额、结算周期、付款状态</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="module-section">
+        <h4>💡 对现金流的影响</h4>
+        <div class="impact-box" style="border-left-color:var(--positive)">
+          库存是<strong>冻结的现金</strong>。库存周转天数延长意味着现金占用增加，需从可用现金中扣除；补货计划触发采购付款；生产进度决定销售可兑现时间；呆滞库存减值虽不直接产生现金流，但影响未来采购预算和现金规划。<strong>注意：</strong>MRP 与实际执行的偏差、在制品估值准确性常存在问题。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module 4 -->
+  <div class="module-card">
+    <button class="module-header" type="button" onclick="toggleModule(this.closest('.module-card'))" aria-expanded="false">
+      <div class="module-dot dot-purple"></div>
+      <div class="module-title-group">
+        <h3>模块四：薪酬与费用</h3>
+        <span>最稳定的现金流出项</span>
+      </div>
+      <span class="chevron" aria-hidden="true">▼</span>
+    </button>
+    <div class="module-body">
+      <div class="module-section">
+        <h4>📋 数据清单</h4>
+        <table class="data-table">
+          <thead><tr><th>数据项</th><th>关键字段</th></tr></thead>
+          <tbody>
+            <tr><td>员工花名册与薪酬</td><td>基本工资、津贴、发放周期</td></tr>
+            <tr><td>社保公积金</td><td>缴纳基数、比例、申报周期</td></tr>
+            <tr><td>奖金/绩效计划</td><td>发放月份、金额、考核结果</td></tr>
+            <tr><td>费用报销历史</td><td>部门、费用类型、金额、审批周期</td></tr>
+            <tr><td>固定费用清单</td><td>租金、折旧、摊销、合同期限</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="module-section">
+        <h4>💡 对现金流的影响</h4>
+        <div class="impact-box" style="border-left-color:var(--purple)">
+          薪酬和固定费用是最稳定的现金流出项，可高度准确预测；费用报销具有随机性，需用历史分布建模（如：销售部月均报销5万，标准差1.2万）；<strong>折旧摊销是非现金项</strong>，在从净利润倒推经营现金流时必须加回。奖金通常集中在季度末或年末，形成可预见的现金流出峰值。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module 5 -->
+  <div class="module-card">
+    <button class="module-header" type="button" onclick="toggleModule(this.closest('.module-card'))" aria-expanded="false">
+      <div class="module-dot dot-gray"></div>
+      <div class="module-title-group">
+        <h3>模块五：银行与资金</h3>
+        <span>预测的基准起点与融资约束</span>
+      </div>
+      <span class="chevron" aria-hidden="true">▼</span>
+    </button>
+    <div class="module-body">
+      <div class="module-section">
+        <h4>📋 数据清单</h4>
+        <table class="data-table">
+          <thead><tr><th>数据项</th><th>关键字段</th></tr></thead>
+          <tbody>
+            <tr><td>银行账户余额</td><td>各账户实时/日终余额</td></tr>
+            <tr><td>银行流水明细</td><td>收付款方、金额、时间、用途</td></tr>
+            <tr><td>银行授信额度</td><td>总额度、已用额度、可用额度</td></tr>
+            <tr><td>贷款合同</td><td>本金、利率、还款计划、剩余期限</td></tr>
+            <tr><td>票据到期记录</td><td>银票/商票金额、开立日、到期日</td></tr>
+            <tr><td>外汇头寸</td><td>外币余额、汇率、折算损益</td></tr>
+            <tr><td>理财/投资到期</td><td>产品金额、到期日、预计收益</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="module-section">
+        <h4>💡 对现金流的影响</h4>
+        <div class="impact-box" style="border-left-color:var(--text-tertiary)">
+          提供预测的<strong>基准起点（期初现金）</strong>；贷款还款是刚性现金流出，精确到日；票据到期形成集中付款压力，是短期现金流的关键节点；外汇波动影响外币现金流折算。非经营性收支（理财、投资）常被遗漏，但会显著影响实际可用资金。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module 6 -->
+  <div class="module-card">
+    <button class="module-header" type="button" onclick="toggleModule(this.closest('.module-card'))" aria-expanded="false">
+      <div class="module-dot dot-orange"></div>
+      <div class="module-title-group">
+        <h3>模块六：税务与其他</h3>
+        <span>刚性大额支出与特殊现金项</span>
+      </div>
+      <span class="chevron" aria-hidden="true">▼</span>
+    </button>
+    <div class="module-body">
+      <div class="module-section">
+        <h4>📋 数据清单</h4>
+        <table class="data-table">
+          <thead><tr><th>数据项</th><th>关键字段</th></tr></thead>
+          <tbody>
+            <tr><td>增值税进销项</td><td>销项税额、进项税额、申报周期</td></tr>
+            <tr><td>企业所得税</td><td>预缴金额、汇算清缴时间、补缴/退税</td></tr>
+            <tr><td>其他税费</td><td>印花税、附加税等发生记录</td></tr>
+            <tr><td>政府补贴/退税</td><td>金额、申请状态、历史到账周期</td></tr>
+            <tr><td>资本支出（CAPEX）</td><td>预算金额、执行进度、付款节点</td></tr>
+            <tr><td>股利分配</td><td>决议金额、支付日期、股东名册</td></tr>
+            <tr><td>关联公司往来</td><td>往来款金额、计划收付日期</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="module-section">
+        <h4>💡 对现金流的影响</h4>
+        <div class="impact-box" style="border-left-color:var(--warning)">
+          税款是<strong>刚性大额支出</strong>，申报周期决定现金流出时点；补贴到账具有高度不确定性，大模型用历史到账概率分布建模（如：70%概率在申请后60天内到账）；CAPEX 造成投资现金流出，按工程进度或设备交付节点分期预测；股利分配是融资活动现金流出，董事会决议后通常可精确预测。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PART 4: 四层分析架构 ==================== -->
+<section class="section" id="part4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>总体分析模型：「数据—预测引擎—大模型协同—应用」四层架构 <span>从数据采集到决策支持的闭环</span></h2>
+  </div>
+
+  <div class="arch-flow">
+    <div class="arch-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>数据层 — ERP 与关键补充数据统一治理</h4>
+        <p>销售、采购、库存、资金、税务等 ERP 数据，与银行流水、合同、预算和重大事项统一映射；完成主数据对齐、缺失检查、异常标记和现金流口径转换，并保留来源与更新时间。</p>
+      </div>
+    </div>
+    <div class="arch-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>预测引擎层 — 规则基线、统计模型与概率模拟</h4>
+        <p><strong>确定性基线：</strong>按已确认收付款计划逐笔推算。<br><strong>统计与机器学习：</strong>预测回款概率、季节性和业务驱动变化。<br><strong>概率模拟：</strong>对长期不确定性生成区间与多情景结果。模型通过滚动回测选择，不预设必须使用某一种算法。</p>
+      </div>
+    </div>
+    <div class="arch-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>大模型协同层 — 信息结构化、任务编排与解释</h4>
+        <p>大模型解析合同付款条款和重大事项，调用经验证的预测工具，理解自然语言情景假设，并基于可追溯数据生成偏差归因和管理报告。关键假设、异常调整与高风险建议保留人工复核。</p>
+      </div>
+    </div>
+    <div class="arch-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>应用层 — 决策支持与闭环反馈</h4>
+        <p>展示现金余额趋势、收支构成、资金缺口和置信区间；支持自然语言情景模拟与分级预警；实际数据回流后持续计算 WAPE、偏差方向和预警命中率，形成可审计的改进闭环。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="arch-roles">
+    <div class="role-card llm">
+      <h4>🧠 大模型协同负责</h4>
+      <ul>
+        <li>合同条款语义解析 → 付款时点结构化</li>
+        <li>重大事项与业务文本结构化</li>
+        <li>基于证据生成偏差解释</li>
+        <li>把自然语言情景转为模型参数</li>
+        <li>生成带假设与风险提示的报告</li>
+      </ul>
+    </div>
+    <div class="role-card ml">
+      <h4>📈 预测引擎负责</h4>
+      <ul>
+        <li>规则模型：已确认收付款逐笔推算</li>
+        <li>分类与回归：回款概率和金额预测</li>
+        <li>时间序列：趋势、周期与季节性</li>
+        <li>概率模拟：输出区间和压力情景</li>
+        <li>回测监控：比较基线与候选模型</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <h4>🚀 落地实施路线图</h4>
+    <p>
+      <strong>Phase 1（第 1–2 周）：</strong>数据审计。拉出过去24个月ERP数据，检查缺失率。重点关注客户回款历史完整性、应付实际付款日期记录、银行流水对接可行性。<br><br>
+      <strong>Phase 2（第 3–4 周）：</strong>建立基准。用现有ERP数据跑最简单的预测（已开票应收按历史平均回款天数推算），算出当前人工预测误差，作为AI模型对比基准。<br><br>
+      <strong>Phase 3（第 5–8 周）：</strong>引入大模型。先用于合同付款条款解析、重大事项结构化、偏差归因报告和自然语言情景分析。<br><br>
+      <strong>Phase 4（第 9–12 周）：</strong>补齐缺口。按回测结果决定是否接入银行实时接口、外部变量和客户行为标签，并用稳定的评价指标持续验证改进。
+    </p>
+  </div>
+</section>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <a href="index.html">于涛的个人网站</a> · 企业财务 AI 场景研究<br>
+  本页为方法框架展示，预测效果须以企业真实数据回测为准。
+</div>
+
+<script src="assets/js/cash-flow-forecast.js"></script>
+
+</body>
+</html>
