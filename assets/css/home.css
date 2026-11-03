@@ -44,7 +44,7 @@ h1 { position:relative; max-width:760px; margin:14px 0 16px; font-size:38px; lin
 .section-head h2 { margin:5px 0 0; font-size:25px; }
 .section-head p { max-width:520px; margin:0; color:#718198; font-size:12px; line-height:1.7; text-align:right; }
 .kicker { color:#2a67be; font-size:9px; font-weight:900; letter-spacing:.14em; }
-.project-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:15px; }
+.project-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px; }
 .project-card { position:relative; display:flex; flex-direction:column; padding:24px; overflow:hidden; border:1px solid var(--line); border-radius:19px; background:#fff; color:var(--text); text-decoration:none; cursor:pointer; transition:.22s; }
 .project-card:hover { transform:translateY(-3px); border-color:#8fb2df; box-shadow:var(--shadow); }
 .project-card:focus-visible { outline:3px solid rgba(52,120,222,.3); outline-offset:3px; }
@@ -62,6 +62,10 @@ h1 { position:relative; max-width:760px; margin:14px 0 16px; font-size:38px; lin
 .project-card:hover .cta-arrow { transform:translateX(3px); background:rgba(255,255,255,.24); }
 footer { max-width:1160px; margin:auto; padding:26px 22px 40px; border-top:1px solid var(--line); color:#8492a4; font-size:11px; text-align:center; }
 a:focus-visible { outline:3px solid rgba(52,120,222,.25); outline-offset:2px; }
+@media (min-width:761px) and (max-width:1000px) {
+  .project-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .project-card:last-child:nth-child(odd) { grid-column:1 / -1; }
+}
 @media (max-width:760px) {
   .topbar-inner { padding:10px 14px; }
   nav a { padding:7px; }
