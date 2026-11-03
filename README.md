@@ -9,6 +9,7 @@
 - `index.html`：个人网站首页。
 - `ai.html`：企业财务 AI 应用全景图。这个路径已经对外使用，后续优化时应保持可访问。
 - `cash-flow-forecast.html`：基于大模型的企业现金流预测场景研究。
+- `assign-work-to-ai.html`：把活派给员工和派给 AI 的主题思考。
 
 ## 目录结构
 
@@ -17,6 +18,7 @@
 ├─ index.html                         # 首页入口
 ├─ ai.html                            # 财务 AI 全景图入口
 ├─ cash-flow-forecast.html            # 企业现金流预测场景入口
+├─ assign-work-to-ai.html             # AI 协作主题页面入口
 ├─ assets/
 │  ├─ css/                           # 页面样式
 │  ├─ data/                          # 结构化内容数据
